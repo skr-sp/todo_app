@@ -4,7 +4,7 @@ services:
     # PostgreSQLデータベース
     db:
         image: postgres:16-alpine
-        container_name: todo-db
+        container_name: todo_db
         restart: always
         environment:
             POSTGRES_USER: postgres
@@ -25,7 +25,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: todo-app
+        container_name: todo_app
         restart: always
         ports:
             - "3000:3000"
