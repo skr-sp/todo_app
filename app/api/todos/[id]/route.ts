@@ -27,10 +27,7 @@ export async function PATCH(
         });
 
         // 成功レスポンス
-        return NextResponse.json(
-            {message:"Todo updated successfully", todo},
-            {status: 200}
-        );
+        return NextResponse.json(todo, {status: 200});
     } catch(error){
         // エラーログ出力
         console.error(error);
@@ -49,15 +46,20 @@ export async function PATCH(
  */
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        // パラメータ取得
+        const { id } = await params;
+
         // TODO削除
         await prisma.todo.delete({
             where: {
-                id: params.id,
+                id: id,
             }
         });
+
+        return NextResponse.json({ success: true });
     } catch (error) {
         // エラーログ出力
         console.error(error);

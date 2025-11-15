@@ -52,10 +52,7 @@ export async function POST(request: Request) {
         });
 
         // 成功レスポンス
-        return NextResponse.json(
-            {message: "Todo created successfully", todo},
-            {status: 201}
-        );
+        return NextResponse.json(todo, {status: 201});
     } catch (error) {
         // エラーログ出力
         console.error(error);
