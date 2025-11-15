@@ -8,16 +8,18 @@ import {UpdateTodoInput} from "@/types/todo";
  */
 export async function PATCH(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
+
         // リクエストボディ取得
         const body: UpdateTodoInput = await request.json();
 
         // TODO更新
         const todo = await prisma.todo.update({
             where: {
-                id: params.id
+                id: id
             },
             data: {
                 completed: body.completed
